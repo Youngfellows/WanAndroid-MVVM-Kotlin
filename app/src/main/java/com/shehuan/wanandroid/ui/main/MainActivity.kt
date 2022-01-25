@@ -33,16 +33,20 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity() {
 
+    /**
+     * 初始化MainViewModel,MainRepository是MainViewModel的参数,并关联起来
+     */
     private val viewModel by lazy {
-        initViewModel(
-            this, MainViewModel::class, MainRepository::class
-        )
+        initViewModel(this, MainViewModel::class, MainRepository::class)
     }
 
     private var isBackPressed: Boolean = false
 
     private lateinit var usernameTv: TextView
 
+    /**
+     * 静态属性和静态方法
+     */
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
@@ -60,10 +64,20 @@ class MainActivity : BaseActivity() {
 
     override fun initData() {
         EventBus.getDefault().register(this)
-        viewModel.logoutSuccess.observe(this, Observer { success ->
+        /*viewModel.logoutSuccess.observe(this, Observer { success ->
             hideLoading()
             if (success) {
                 usernameTv.text = getString(R.string.login)
+            }
+        })*/
+
+        //使用对象表达式,观察数据变化
+        viewModel.logoutSuccess.observe(this, object : Observer<Boolean> {
+            override fun onChanged(success: Boolean?) {
+                hideLoading()
+                if (success!!) {
+                    usernameTv.text = getString(R.string.login)
+                }
             }
         })
     }

@@ -14,16 +14,32 @@ import com.shehuan.wanandroid.widget.LoadingDialog
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 abstract class BaseActivity : AppCompatActivity() {
+
     protected val TAG: String = this.javaClass.simpleName
 
+    /**
+     * 上下文:延迟加载初始化
+     */
     lateinit var mContext: BaseActivity
 
+    /**
+     *初始化加载资源布局
+     */
     abstract fun initContentView()
 
+    /**
+     *初始化数据
+     */
     abstract fun initData()
 
+    /**
+     *初始化视图
+     */
     abstract fun initView()
 
+    /**
+     *初始化加载项
+     */
     abstract fun initLoad()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +59,17 @@ abstract class BaseActivity : AppCompatActivity() {
         initLoad()
     }
 
+    /**
+     * 状态视图
+     */
     protected lateinit var statusView: StatusView
 
+    /**
+     * 初始化状态视图
+     *
+     * @param id 状态布局资源
+     * @param errorRetry
+     */
     protected fun initStatusView(id: Int, errorRetry: (View) -> Unit) {
         statusView = StatusView.init(this, id).apply {
             setLoadingView(R.layout.dialog_loading_layout)
@@ -57,10 +82,20 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 初始化头部
+     *
+     * @param titleId 头部标题
+     */
     protected fun initToolbar(@StringRes titleId: Int) {
         initToolbar(getString(titleId))
     }
 
+    /**
+     * TODO初始化头部
+     *
+     * @param titleStr 头部标题
+     */
     protected fun initToolbar(titleStr: String) {
         toolbar.run {
             title = titleStr
@@ -72,8 +107,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 加载对话框
+     */
     private var loadingDialog: LoadingDialog? = null
 
+    /**
+     * 显示加载对话框
+     */
     protected fun showLoading() {
         if (loadingDialog == null || loadingDialog?.dialog == null) {
             loadingDialog = LoadingDialog.newInstance()
@@ -81,6 +122,9 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     *隐藏加载对话框
+     */
     protected fun hideLoading() {
         if (loadingDialog != null) {
             loadingDialog!!.dismiss()

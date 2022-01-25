@@ -5,6 +5,9 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.lang.StringBuilder
 
+/**
+ * 注册或者登录时保存Cookie信息
+ */
 class SaveCookiesInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalResponse = chain.proceed(chain.request())

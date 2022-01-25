@@ -4,6 +4,10 @@ import com.shehuan.wanandroid.utils.sp.SpUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 
+
+/**
+ * 网络请求时添加cookie
+ */
 class AddCookiesInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
