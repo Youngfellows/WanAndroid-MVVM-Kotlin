@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    libraryVariants.all {
+        it.generateBuildConfigProvider.configure { enabled = false }
+    }
+}
+
+dependencies {
+    compileOnly "androidx.core:core:${rootProject.androidxCoreVersion}"
+    compileOnly "androidx.recyclerview:recyclerview:${rootProject.androidxRecyclerViewVersion}"
+
+    //testImplementation "junit:junit:${rootProject.junitVersion}"
+}

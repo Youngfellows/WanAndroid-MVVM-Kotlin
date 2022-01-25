@@ -1,0 +1,2 @@
+include ':app', ':statusview', ':BaseAdapter', ':niceimageview', ':nicedialog', ':avloading', ':flexbox'
+rootProject.name='WanAndroid-MVVM'
