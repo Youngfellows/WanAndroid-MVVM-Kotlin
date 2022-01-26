@@ -51,8 +51,8 @@ class BottomTabLayout : LinearLayout {
     /**
      * 添加一个导航控件到底部控件
      * @param tabName
-     * @param defaultIconId
-     * @param selectIconId
+     * @param defaultIconId 默认图片资源
+     * @param selectIconId 选中图片资源
      */
     fun addTab(tabName: String, defaultIconId: Int, selectIconId: Int) {
         val tab = TabItem(context, tabName, defaultIconId, selectIconId)
@@ -115,6 +115,10 @@ class BottomTabLayout : LinearLayout {
      */
     private lateinit var listener: OnTabSwitchListener
 
+    /**
+     * 设置tab切换监听
+     * @param listener
+     */
     fun setOnTabSwitchListener(listener: OnTabSwitchListener) {
         this.listener = listener
     }

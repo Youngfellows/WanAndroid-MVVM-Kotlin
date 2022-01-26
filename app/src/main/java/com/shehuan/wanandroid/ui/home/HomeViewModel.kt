@@ -6,6 +6,10 @@ import com.shehuan.wanandroid.base.net.exception.ApiException
 import com.shehuan.wanandroid.bean.BannerBean
 import com.shehuan.wanandroid.bean.article.ArticleBean
 
+/**
+ * 首页 ViewModel
+ * @property repository 具体请求任务
+ */
 class HomeViewModel(private val repository: HomeRepository) : BaseViewModel() {
     var collectSuccess = MutableLiveData<Boolean>()
 

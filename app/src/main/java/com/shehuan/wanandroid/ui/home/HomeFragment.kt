@@ -19,9 +19,14 @@ import com.shehuan.wanandroid.base.initViewModel
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.floating_button_layout.*
 
-
+/**
+ * 首页
+ */
 class HomeFragment : BaseFragment() {
 
+    /**
+     * 初始化ViewModel
+     */
     private val viewModel by lazy {
         initViewModel(
             this, HomeViewModel::class, HomeRepository::class
@@ -36,20 +41,33 @@ class HomeFragment : BaseFragment() {
     private lateinit var bannerBeans: List<BannerBean>
     private lateinit var banner: Banner
 
+    /**
+     * 静态方法,属性
+     */
     companion object {
         fun newInstance() = HomeFragment()
     }
 
+    /**
+     * 加载数据
+     */
     override fun initLoad() {
         statusView.showLoadingView()
         viewModel.getArticleList(pageNum)
         viewModel.getBannerList()
     }
 
+    /**
+     * 加载首页布局
+     * @return
+     */
     override fun initLayoutResID(): Int {
         return R.layout.fragment_home
     }
 
+    /**
+     * 初始化数据监听
+     */
     override fun initData() {
         viewModel.collectSuccess.observe(this, Observer { success ->
             hideLoading()
@@ -103,6 +121,9 @@ class HomeFragment : BaseFragment() {
         })
     }
 
+    /**
+     * 初始化视图
+     */
     override fun initView() {
         // 初始化banner
         banner = LayoutInflater.from(context).inflate(

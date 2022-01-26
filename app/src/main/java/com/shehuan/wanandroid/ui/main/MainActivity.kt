@@ -40,8 +40,14 @@ class MainActivity : BaseActivity() {
         initViewModel(this, MainViewModel::class, MainRepository::class)
     }
 
+    /**
+     * 是否按下返回按键
+     */
     private var isBackPressed: Boolean = false
 
+    /**
+     * 延迟加载初始化
+     */
     private lateinit var usernameTv: TextView
 
     /**
@@ -54,14 +60,23 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 初始化加载项
+     */
     override fun initLoad() {
 
     }
 
+    /**
+     * 加载布局
+     */
     override fun initContentView() {
         setContentView(R.layout.activity_main)
     }
 
+    /**
+     * 初始化数据集
+     */
     override fun initData() {
         EventBus.getDefault().register(this)
         /*viewModel.logoutSuccess.observe(this, Observer { success ->
@@ -82,23 +97,31 @@ class MainActivity : BaseActivity() {
         })
     }
 
+    /**
+     * 初始化视图和绑定轮播页
+     */
     override fun initView() {
+        //点击关闭抽屉
         mainMenuIv.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START)
         }
 
+        //打开搜索页
         mainQueryIv.setOnClickListener {
             QueryActivity.start(this)
         }
 
+        //加载侧滑抽屉头
         usernameTv = navigationView.inflateHeaderView(R.layout.navigation_view_header_layout)
             .findViewById(R.id.usernameTv)
         usernameTv.text = SpUtil.getUsername()
         usernameTv.setOnClickListener {
             if (getString(R.string.login) == usernameTv.text) {
+                //跳转登录页
                 LoginActivity.start(this)
             }
         }
+        //加载侧滑抽屉菜单项
         navigationView.inflateMenu(R.menu.navigation_view_menu_layout)
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -148,6 +171,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 跳转到收藏页
+     */
     private fun collection() {
         if (SpUtil.getCookies().isEmpty()) {
             ToastUtil.show(mContext, R.string.login_tip)
@@ -156,20 +182,29 @@ class MainActivity : BaseActivity() {
         MyCollectionActivity.start(mContext)
     }
 
+    /**
+     * 跳转到设置页
+     */
     private fun setting() {
         ToastUtil.show(mContext, R.string.setting_tip)
     }
 
+    /**
+     * 跳转到关于页面
+     */
     private fun about() {
         AboutActivity.start(this)
     }
 
+    /**
+     * 登出
+     */
     private fun logout() {
         if (SpUtil.getCookies().isEmpty()) {
             ToastUtil.show(mContext, R.string.login_tip)
             return
         }
-
+        //对象表达式,登出
         LogoutDialog.show(supportFragmentManager, object : LogoutDialog.OnLogoutListener {
             override fun logout() {
                 showLoading()
@@ -184,10 +219,15 @@ class MainActivity : BaseActivity() {
         usernameTv.text = SpUtil.getUsername()
     }
 
+    /**
+     * 监听返回按键及双击退出
+     */
     override fun onBackPressed() {
+        //关闭抽屉
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
+            //再按一次退出
             if (isBackPressed) {
                 super.onBackPressed()
                 return

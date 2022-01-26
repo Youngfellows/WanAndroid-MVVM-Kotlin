@@ -16,6 +16,10 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
+/**
+ * 基础对话框
+ */
 public abstract class BaseNiceDialog extends DialogFragment {
     private static final String MARGIN = "margin";
     private static final String WIDTH = "width";
@@ -40,8 +44,19 @@ public abstract class BaseNiceDialog extends DialogFragment {
     @LayoutRes
     protected int layoutId;
 
+    /**
+     * 获取对话框资源布局
+     *
+     * @return 布局资源
+     */
     public abstract int intLayoutId();
 
+    /**
+     * 绑定视图和对话框
+     *
+     * @param holder
+     * @param dialog
+     */
     public abstract void convertView(ViewHolder holder, BaseNiceDialog dialog);
 
     public int initTheme() {
@@ -101,6 +116,9 @@ public abstract class BaseNiceDialog extends DialogFragment {
         outState.putInt(LAYOUT, layoutId);
     }
 
+    /**
+     * 初始化对话框布局参数配置
+     */
     private void initParams() {
         Window window = getDialog().getWindow();
         if (window != null) {

@@ -14,27 +14,67 @@ import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.widget.LoadingDialog
 
+
+/**
+ * 基础的Fragment
+ */
 abstract class BaseFragment : Fragment() {
     protected val TAG: String = this.javaClass.simpleName
 
+    /**
+     * 上下文
+     */
     lateinit var mContext: BaseActivity
 
-    private var isViewCreated: Boolean = false // 界面是否已创建完成
-    protected var isVisibleToUser: Boolean = false // 是否对用户可见
-    private var isDataLoaded: Boolean = false// 数据是否已请求, isNeedReload()返回false的时起作用
-    private var isFragmentHidden: Boolean = true // 记录当前fragment的是否隐藏
+    /**
+     * 界面是否已创建完成
+     */
+    private var isViewCreated: Boolean = false
 
+    /**
+     * 是否对用户可见
+     */
+    protected var isVisibleToUser: Boolean = false
+
+    /**
+     * 数据是否已请求, isNeedReload()返回false的时起作用
+     */
+    private var isDataLoaded: Boolean = false
+
+    /**
+     * 记录当前fragment的是否隐藏
+     */
+    private var isFragmentHidden: Boolean = true
+
+
+    /**
+     * 加载资源
+     * @return
+     */
     @LayoutRes
     abstract fun initLayoutResID(): Int
 
+    /**
+     * 初始化数据绑定
+     * @param view 当前界面View
+     */
     protected fun initDataBinding(view: View) {
 
     }
 
+    /**
+     * 初始化数据绑定
+     */
     abstract fun initData()
 
+    /**
+     * 初始化view
+     */
     abstract fun initView()
 
+    /**
+     * 初始化加载
+     */
     abstract fun initLoad()
 
     override fun onAttach(context: Context) {
@@ -179,8 +219,17 @@ abstract class BaseFragment : Fragment() {
         super.onDestroy()
     }
 
+    /**
+     * 状态视图
+     */
     protected lateinit var statusView: StatusView
 
+    /**
+     * 初始化状态视图
+     *
+     * @param id 视图资源
+     * @param errorRetry 错误回调
+     */
     protected fun initStatusView(id: Int, errorRetry: (View) -> Unit) {
         initStatusView(StatusView.init(this, id), errorRetry)
     }
@@ -197,8 +246,14 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    /**
+     * 初始化加载对话框
+     */
     private var loadingDialog: LoadingDialog? = null
 
+    /**
+     * 显示加载对话框
+     */
     protected fun showLoading() {
         if (loadingDialog == null || loadingDialog?.dialog == null) {
             loadingDialog = LoadingDialog.newInstance()
@@ -206,6 +261,9 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    /**
+     * 隐藏加载对话框
+     */
     protected fun hideLoading() {
         if (loadingDialog != null) {
             loadingDialog!!.dismiss()

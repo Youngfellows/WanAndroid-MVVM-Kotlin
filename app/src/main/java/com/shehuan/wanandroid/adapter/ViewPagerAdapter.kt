@@ -5,8 +5,24 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 
-class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+/**
+ *  为轮播图设置适配器
+ * @constructor
+ * TODO
+ *
+ * @param fragmentManager
+ */
+class ViewPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager) {
+
+    /**
+     * Fragment列表集
+     */
     private lateinit var fragments: List<Fragment>
+
+    /**
+     * title集合
+     */
     private lateinit var titles: List<String>
 
     fun setFragments(fragments: List<Fragment>) {
@@ -18,6 +34,11 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
         this.titles = titles
     }
 
+    /**
+     * 根据索引获取Fragment指定页
+     * @param position 位置
+     * @return Fragment指定页
+     */
     override fun getItem(position: Int): Fragment {
         return fragments[position]
     }
@@ -26,6 +47,10 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
         return titles[position]
     }
 
+    /**
+     * 获取Fragment总页数
+     * @return 总页数
+     */
     override fun getCount(): Int {
         return fragments.size
     }
@@ -33,4 +58,5 @@ class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
     override fun getItemPosition(`object`: Any): Int {
         return PagerAdapter.POSITION_NONE
     }
+
 }
