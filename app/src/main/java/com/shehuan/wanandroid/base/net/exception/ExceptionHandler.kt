@@ -22,8 +22,17 @@ import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.UnknownHostException
 
+/**
+ * 处理异常
+ */
 class ExceptionHandler {
+
     companion object {
+        /**
+         * 静态方法
+         * @param e 异常
+         * @return ApiException
+         */
         fun handle(e: Throwable): ApiException {
             val responseException: ApiException
             if (e is ApiException) {

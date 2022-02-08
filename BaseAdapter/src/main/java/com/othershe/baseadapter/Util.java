@@ -25,6 +25,13 @@ public class Util {
         return max;
     }
 
+    /**
+     * 动态加载布局
+     *
+     * @param context
+     * @param layoutId 布局ID
+     * @return
+     */
     public static View inflate(Context context, int layoutId) {
         if (layoutId <= 0) {
             return null;

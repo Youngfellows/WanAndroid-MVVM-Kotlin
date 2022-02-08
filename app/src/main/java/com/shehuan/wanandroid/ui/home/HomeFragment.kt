@@ -1,5 +1,6 @@
 package com.shehuan.wanandroid.ui.home
 
+import android.util.Log
 import com.shehuan.wanandroid.R
 import com.shehuan.wanandroid.adapter.ArticleListAdapter
 import com.shehuan.wanandroid.bean.BannerBean
@@ -18,6 +19,7 @@ import com.shehuan.wanandroid.utils.BannerImageLoader
 import com.shehuan.wanandroid.base.initViewModel
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.floating_button_layout.*
+import java.lang.IllegalArgumentException
 
 /**
  * 首页
@@ -33,12 +35,34 @@ class HomeFragment : BaseFragment() {
         )
     }
 
+    /**
+     * 第几页
+     */
     private var pageNum: Int = 0
+
+    /**
+     * 文章列表适配器
+     */
     private lateinit var articleListAdapter: ArticleListAdapter
+
+    /**
+     * 收藏的列表项目
+     */
     private lateinit var collectDataItem: DatasItem
+
+    /**
+     * 收藏的列表项目索引
+     */
     private var collectPosition: Int = 0
 
+    /**
+     * 轮播图数据集
+     */
     private lateinit var bannerBeans: List<BannerBean>
+
+    /**
+     * 轮播图
+     */
     private lateinit var banner: Banner
 
     /**
@@ -52,6 +76,7 @@ class HomeFragment : BaseFragment() {
      * 加载数据
      */
     override fun initLoad() {
+        Log.w(TAG, Log.getStackTraceString(IllegalArgumentException("initLoad()")))
         statusView.showLoadingView()
         viewModel.getArticleList(pageNum)
         viewModel.getBannerList()
@@ -147,6 +172,7 @@ class HomeFragment : BaseFragment() {
             articleRv.smoothScrollToPosition(0)
         }
 
+        //文章列表适配器
         articleListAdapter = ArticleListAdapter(context, null, true).apply {
             setLoadingView(R.layout.rv_loading_layout)
             setLoadEndView(R.layout.rv_load_end_layout)
@@ -155,8 +181,10 @@ class HomeFragment : BaseFragment() {
             addHeaderView(banner)
 
             setOnItemClickListener { _, data, _ ->
+                //跳转到文章页
                 ArticleActivity.start(mContext, data.title, data.link)
             }
+            //点击收藏,取消收藏
             setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
                 collectDataItem = data
                 collectPosition = position
@@ -167,6 +195,7 @@ class HomeFragment : BaseFragment() {
                     viewModel.uncollectArticle(data.id)
                 }
             }
+            //加载更多,分页加载
             setOnLoadMoreListener {
                 viewModel.getArticleList(pageNum)
             }
@@ -191,6 +220,7 @@ class HomeFragment : BaseFragment() {
             })
         }
 
+        //加载数据
         initStatusView(homeRootLayout) {
             initLoad()
         }

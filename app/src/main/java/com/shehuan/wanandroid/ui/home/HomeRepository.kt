@@ -10,14 +10,14 @@ class HomeRepository : BaseRepository() {
 
     /**
      * 收藏站内文章
-     * @param id
+     * @param id 文章ID
      */
     suspend fun collectArticle(id: Int) =
         executeRequest { RetrofitManager.getApis().collectArticle(id) }
 
     /**
      * 在文章列表取消收藏
-     * @param id
+     * @param id 文章ID
      */
     suspend fun uncollectArticle(id: Int) =
         executeRequest { RetrofitManager.getApis().uncollectArticle(id) }

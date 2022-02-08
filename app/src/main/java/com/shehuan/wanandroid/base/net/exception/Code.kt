@@ -1,6 +1,13 @@
 package com.shehuan.wanandroid.base.net.exception
 
+/**
+ * 状态码常量
+ */
 class Code {
+
+    /**
+     * 静态常量
+     */
     companion object {
         const val UNAUTHORIZED = 401
         const val FORBIDDEN = 403
@@ -15,14 +22,19 @@ class Code {
         /* 自约定的响应码 */
         // 未知错误
         const val UNKNOWN_ERROR = 1000
+
         // 解析错误
         const val PARSE_ERROR = 1001
+
         // 网络错误
         const val NET_ERROR = 1002
+
         // 协议出错
         const val HTTP_ERROR = 1003
+
         // 证书出错
         const val SSL_ERROR = 1005
+
         // 连接超时
         const val TIMEOUT_ERROR = 1006
     }

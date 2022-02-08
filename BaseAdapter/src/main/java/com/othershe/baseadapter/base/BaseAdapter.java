@@ -31,12 +31,15 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
     private static final int TYPE_RELOAD_VIEW = 100005;//初次加载无数据的可重新加载或提示用户的view
     private static final int TYPE_BASE_HEADER_VIEW = 200000;
 
+    /**
+     * 装载headView的容器
+     */
     private SparseArrayCompat<View> mHeaderViews = new SparseArrayCompat<>();
 
     private OnLoadMoreListener mLoadMoreListener;
 
     protected Context mContext;
-    private List<T> mDatas;
+    private List<T> mDatas;//数据集
     private boolean isOpenLoadMore;//是否开启加载更多
     private boolean isAutoLoadMore;//是否自动加载，当数据不满一屏幕会自动加载
     private boolean isAutoLoadMoreEnd;//自动加载更多是否已经结束
@@ -54,6 +57,13 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
     private boolean showHeaderView = true;//是否显示HeaderView
 
+    /**
+     * 设置条目类型
+     *
+     * @param position 条目位置
+     * @param data     数据
+     * @return
+     */
     protected abstract int getViewType(int position, T data);
 
     public BaseAdapter(Context context, List<T> datas, boolean isOpenLoadMore) {
@@ -152,6 +162,10 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         return isOpenLoadMore && position >= getItemCount() - 1;
     }
 
+    /**
+     * @param viewType item类型
+     * @return 是否是普通类型Item
+     */
     protected boolean isCommonItemView(int viewType) {
         return viewType != TYPE_EMPTY_VIEW && viewType != TYPE_FOOTER_VIEW
                 && viewType != TYPE_NODATA_VIEW && viewType != TYPE_RELOAD_VIEW

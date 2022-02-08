@@ -10,12 +10,18 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Author: Othershe
- * Time: 2016/8/29 09:49
+ * item条目基础的ViewHolder
  */
 public class ViewHolder extends RecyclerView.ViewHolder {
-    private SparseArray<View> mViews;
+    /**
+     * 条目View
+     */
     private View mConvertView;
+
+    /**
+     * 装载条目view的集合
+     */
+    private SparseArray<View> mViews;
 
     /**
      * 私有构造方法

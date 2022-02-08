@@ -12,6 +12,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+/**
+ * 基类Repository
+ */
 open class BaseRepository {
 //    suspend fun <T> Call<BaseResponse<T>>.await(): T {
 //        return suspendCoroutine { continuation ->
