@@ -8,6 +8,9 @@ import com.shehuan.wanandroid.base.initViewModel
 import com.shehuan.wanandroid.widget.WrapTextWatcher
 import kotlinx.android.synthetic.main.activity_register.*
 
+/**
+ * 注册页面
+ */
 class RegisterActivity : BaseActivity() {
 
     private val viewModel by lazy {
@@ -16,6 +19,9 @@ class RegisterActivity : BaseActivity() {
         )
     }
 
+    /**
+     * 静态方法
+     */
     companion object {
         fun start(context: BaseActivity) {
             val intent = Intent(context, RegisterActivity::class.java)

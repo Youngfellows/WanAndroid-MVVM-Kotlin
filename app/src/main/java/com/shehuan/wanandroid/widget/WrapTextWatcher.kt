@@ -4,6 +4,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import com.google.android.material.textfield.TextInputLayout
 
+/**
+ * 监听输入内容变化
+ * @property textInputLayout
+ */
 class WrapTextWatcher(private val textInputLayout: TextInputLayout) : TextWatcher {
 
     override fun afterTextChanged(s: Editable?) {

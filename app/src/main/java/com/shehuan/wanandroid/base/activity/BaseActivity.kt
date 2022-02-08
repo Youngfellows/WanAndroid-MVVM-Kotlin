@@ -123,7 +123,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     /**
-     *隐藏加载对话框
+     * 隐藏加载对话框
      */
     protected fun hideLoading() {
         if (loadingDialog != null) {

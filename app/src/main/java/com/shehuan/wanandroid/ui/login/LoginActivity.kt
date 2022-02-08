@@ -10,13 +10,20 @@ import com.shehuan.wanandroid.base.initViewModel
 import com.shehuan.wanandroid.widget.WrapTextWatcher
 import kotlinx.android.synthetic.main.activity_login.*
 
+/**
+ * 登录页
+ */
 class LoginActivity : BaseActivity() {
+
     private val viewModel by lazy {
         initViewModel(
             this, LoginViewModel::class, LoginRepository::class
         )
     }
 
+    /**
+     * 静态方法
+     */
     companion object {
         fun start(context: BaseActivity) {
             val intent = Intent(context, LoginActivity::class.java)
@@ -38,6 +45,7 @@ class LoginActivity : BaseActivity() {
             if (loginBean != null) {
                 finish()
             }
+
         })
     }
 
