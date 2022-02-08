@@ -14,6 +14,9 @@ import com.shehuan.wanandroid.widget.DividerItemDecoration
 import com.shehuan.wanandroid.widget.WrapLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_my_collection.*
 
+/**
+ * 收藏页
+ */
 class MyCollectionActivity : BaseActivity() {
 
     private val viewModel by lazy {
@@ -22,11 +25,26 @@ class MyCollectionActivity : BaseActivity() {
         )
     }
 
+    /**
+     * 第几页
+     */
     private var pageNum: Int = 0
+
+    /**
+     * 收藏页适配器
+     */
     private lateinit var collectionListAdapter: CollectionListAdapter
+
+    /**
+     * 收藏位置
+     */
     private var collectPosition: Int = 0
 
     companion object {
+        /**
+         * 静态方法
+         * @param context
+         */
         fun start(context: Context) {
             val intent = Intent(context, MyCollectionActivity::class.java)
             context.startActivity(intent)
@@ -82,15 +100,18 @@ class MyCollectionActivity : BaseActivity() {
             setLoadFailedView(R.layout.rv_load_failed_layout)
 
             setOnItemClickListener { _, data, _ ->
+                //跳转详情页
                 ArticleActivity.start(mContext, data.title, data.link)
             }
             setOnItemChildClickListener(R.id.articleCollectIv) { _, data, position ->
                 collectPosition = position
                 showLoading()
+                //取消收藏
                 viewModel.cancelCollection(data.id, data.originId)
 
             }
             setOnLoadMoreListener {
+                //获取收藏列表
                 viewModel.getCollectionList(pageNum)
             }
         }
