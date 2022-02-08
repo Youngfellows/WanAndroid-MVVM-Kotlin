@@ -19,6 +19,9 @@ import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_chapter_detail.*
 import kotlinx.android.synthetic.main.floating_button_layout.*
 
+/**
+ * 公众号详情页
+ */
 class ChapterDetailActivity : BaseActivity() {
 
     private val viewModel by lazy {
@@ -27,23 +30,69 @@ class ChapterDetailActivity : BaseActivity() {
         )
     }
 
+    /**
+     * 第几页
+     */
     private var pageNum: Int = 0
+
+    /**
+     * 公众号ID
+     */
     private var chapterId: Int = 0
+
+    /**
+     * 公众号
+     */
     private lateinit var title: String
 
+    /**
+     * 公众号详情列表适配器
+     */
     private lateinit var chapterDetailListAdapter: ChapterDetailListAdapter
 
+    /**
+     * 查询页
+     */
     private var queryPageNum: Int = 0
+
+    /**
+     * 关键字
+     */
     private lateinit var keyWord: String
+
+    /**
+     * 公众号查询结果详情列表适配器
+     */
     private lateinit var queryResultAdapter: ChapterDetailListAdapter
+
+    /**
+     * 是否初始化查询
+     */
     private var isInitQuery: Boolean = false
-    // 搜索结果是否为空
+
+    /**
+     * 搜索结果是否为空
+     */
     private var isEmpty: Boolean = false
 
+    /**
+     * 收藏数据
+     */
     private lateinit var collectDataItem: DatasItem
+
+    /**
+     * 收藏位置
+     */
     private var collectPosition: Int = 0
 
     companion object {
+
+        /**
+         * 静态方法
+         * @param context
+         * @param title 公众号
+         * @param chapterId 公众号ID
+         */
         fun start(context: BaseActivity, title: String, chapterId: Int) {
             val intent = Intent(context, ChapterDetailActivity::class.java)
             intent.apply {
@@ -169,6 +218,7 @@ class ChapterDetailActivity : BaseActivity() {
             setLoadFailedView(R.layout.rv_load_failed_layout)
 
             setOnItemClickListener { _, data, _ ->
+                //跳转到文章页
                 ArticleActivity.start(mContext, data.title, data.link)
             }
             setOnItemChildClickListener(R.id.chapterArticleCollectIv) { _, data, position ->

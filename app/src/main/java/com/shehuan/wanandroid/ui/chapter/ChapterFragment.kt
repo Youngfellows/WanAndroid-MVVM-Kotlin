@@ -9,6 +9,9 @@ import com.shehuan.wanandroid.ui.chapter.chapterDetail.ChapterDetailActivity
 import com.shehuan.wanandroid.base.initViewModel
 import kotlinx.android.synthetic.main.fragment_chapter.*
 
+/**
+ * 公众号页
+ */
 class ChapterFragment : BaseFragment() {
 
     private val viewModel by lazy {
@@ -20,6 +23,9 @@ class ChapterFragment : BaseFragment() {
     private lateinit var chapterAdapter: ChapterAdapter
 
     companion object {
+        /**
+         * 静态属性
+         */
         fun newInstance() = ChapterFragment()
     }
 
@@ -46,6 +52,7 @@ class ChapterFragment : BaseFragment() {
     override fun initView() {
         chapterAdapter = ChapterAdapter(context, null, false)
         chapterAdapter.setOnItemClickListener { _, data, _ ->
+            //跳转到公众号详情
             ChapterDetailActivity.start(mContext, data.name, data.id)
         }
         val gridLayoutManager = GridLayoutManager(context, 2)

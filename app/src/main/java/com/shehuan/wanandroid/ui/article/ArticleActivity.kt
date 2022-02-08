@@ -17,12 +17,28 @@ import android.webkit.*
 import androidx.annotation.RequiresApi
 import com.shehuan.wanandroid.utils.ToastUtil
 
-
+/**
+ * 文章页
+ */
 class ArticleActivity : BaseActivity() {
+
+    /**
+     * 文章Title
+     */
     private lateinit var title: String
+
+    /**
+     * 文章连接
+     */
     private lateinit var link: String
 
     companion object {
+        /**
+         * 静态方法
+         * @param context 上下文
+         * @param title 文章Title
+         * @param link 文章连接
+         */
         fun start(context: BaseActivity, title: String, link: String) {
             val intent = Intent(context, ArticleActivity::class.java)
             intent.apply {
@@ -57,9 +73,13 @@ class ArticleActivity : BaseActivity() {
         }
         articleWebView.webViewClient = object : WebViewClient() {
             @RequiresApi(Build.VERSION_CODES.M)
-            override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
                 super.onReceivedError(view, request, error)
-                if(error?.description != "net::ERR_SSL_PROTOCOL_ERROR"){
+                if (error?.description != "net::ERR_SSL_PROTOCOL_ERROR") {
                     statusView.showErrorView()
                 }
             }
@@ -100,6 +120,9 @@ class ArticleActivity : BaseActivity() {
         return true
     }
 
+    /**
+     * 浏览器打开
+     */
     private fun browser() {
         val intent = Intent()
         intent.run {
@@ -109,12 +132,18 @@ class ArticleActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    /**
+     * 复制链接
+     */
     private fun copy() {
         val manager = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         manager.primaryClip = ClipData.newPlainText(null, link)
         ToastUtil.show(mContext, R.string.copy_success)
     }
 
+    /**
+     * 分享
+     */
     private fun share() {
         val intent = Intent()
         intent.apply {
@@ -130,7 +159,8 @@ class ArticleActivity : BaseActivity() {
      */
     private fun setIconsVisible(menu: Menu, flag: Boolean) {
         try {
-            val method = menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", java.lang.Boolean.TYPE)
+            val method =
+                menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", java.lang.Boolean.TYPE)
             method.isAccessible = true
             method.invoke(menu, flag)
         } catch (e: Exception) {
