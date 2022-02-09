@@ -16,6 +16,10 @@ import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.floating_button_layout.*
 import kotlinx.android.synthetic.main.fragment_tree_detail.*
 
+
+/**
+ * 体系详情页面
+ */
 private const val CID = "cid"
 
 class TreeDetailFragment : BaseFragment() {
@@ -26,14 +30,36 @@ class TreeDetailFragment : BaseFragment() {
         )
     }
 
+    /**
+     * 第几页
+     */
     private var pageNum: Int = 0
+
+    /**
+     * 体系详情适配器
+     */
     private lateinit var treeDetailListAdapter: TreeDetailListAdapter
+
+    /**
+     * 收藏项
+     */
     private lateinit var collectDataItem: DatasItem
+
+    /**
+     * 收藏项位置
+     */
     private var collectPosition: Int = 0
 
+    /**
+     * 体系ID
+     */
     private var cid: Int = 0
 
     companion object {
+        /**
+         * 静态方法
+         * @param cid 二级体系ID
+         */
         fun newInstance(cid: Int) =
             TreeDetailFragment().apply {
                 arguments = Bundle().apply {
@@ -42,6 +68,10 @@ class TreeDetailFragment : BaseFragment() {
             }
     }
 
+    /**
+     * 加载资源布局
+     * @return
+     */
     override fun initLayoutResID(): Int {
         return R.layout.fragment_tree_detail
     }

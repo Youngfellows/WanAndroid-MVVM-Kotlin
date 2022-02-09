@@ -9,11 +9,28 @@ import com.shehuan.wanandroid.base.activity.BaseActivity
 import com.shehuan.wanandroid.bean.tree.ChildrenItem
 import kotlinx.android.synthetic.main.activity_tree_detail.*
 
+/**
+ * 体系详情页
+ */
 class TreeDetailActivity : BaseActivity() {
+
+    /**
+     * Title标题
+     */
     private lateinit var title: String
+
+    /**
+     * 二级体系
+     */
     private lateinit var secondaryTree: ArrayList<ChildrenItem>
 
     companion object {
+        /**
+         * 静态方法,保存数据
+         * @param context
+         * @param title
+         * @param secondaryTree
+         */
         fun start(context: BaseActivity, title: String, secondaryTree: ArrayList<ChildrenItem>) {
             val intent = Intent(context, TreeDetailActivity::class.java)
             intent.apply {

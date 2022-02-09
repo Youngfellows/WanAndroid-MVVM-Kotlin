@@ -11,6 +11,9 @@ import com.shehuan.wanandroid.base.initViewModel
 import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_tree.*
 
+/**
+ * 体系页
+ */
 class TreeFragment : BaseFragment() {
 
     private val viewModel by lazy {
@@ -19,9 +22,15 @@ class TreeFragment : BaseFragment() {
         )
     }
 
+    /**
+     * 体系页列表适配器
+     */
     private lateinit var treeListAdapter: TreeListAdapter
 
     companion object {
+        /**
+         * 静态方法
+         */
         fun newInstance() = TreeFragment()
     }
 
@@ -30,6 +39,10 @@ class TreeFragment : BaseFragment() {
         viewModel.getTree()
     }
 
+    /**
+     * 加载体系页布局资源
+     * @return
+     */
     override fun initLayoutResID(): Int {
         return R.layout.fragment_tree
     }
@@ -47,7 +60,8 @@ class TreeFragment : BaseFragment() {
     override fun initView() {
         treeListAdapter = TreeListAdapter(context, null, false)
         treeListAdapter.setOnItemClickListener { _, data, _ ->
-                        TreeDetailActivity.start(mContext, data.name, data.children)
+            //跳转到体系详情页
+            TreeDetailActivity.start(mContext, data.name, data.children)
         }
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = RecyclerView.VERTICAL
