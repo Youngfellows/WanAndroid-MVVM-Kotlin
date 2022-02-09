@@ -19,7 +19,9 @@ import com.shehuan.wanandroid.utils.*
 import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.activity_query.*
 
-
+/**
+ * 查询页面
+ */
 class QueryActivity : BaseActivity() {
 
     private val viewModel by lazy {
@@ -33,6 +35,7 @@ class QueryActivity : BaseActivity() {
     private var isInitQuery: Boolean = false
     private lateinit var queryResultAdapter: QueryResultAdapter
     private lateinit var searchView: SearchView
+
     // 搜索结果是否为空
     private var isEmpty: Boolean = false
 
@@ -40,6 +43,10 @@ class QueryActivity : BaseActivity() {
     private var collectPosition: Int = 0
 
     companion object {
+        /**
+         * 静态方法
+         * @param context
+         */
         fun start(context: BaseActivity) {
             val intent = Intent(context, QueryActivity::class.java)
             context.startActivity(intent)
@@ -56,6 +63,7 @@ class QueryActivity : BaseActivity() {
     }
 
     override fun initData() {
+        //收藏
         viewModel.collectSuccess.observe(this, Observer { success ->
             hideLoading()
             if (success) {
@@ -65,6 +73,7 @@ class QueryActivity : BaseActivity() {
             }
         })
 
+        //取消收藏
         viewModel.uncollectSuccess.observe(this, Observer { success ->
             hideLoading()
             if (success) {
@@ -74,6 +83,7 @@ class QueryActivity : BaseActivity() {
             }
         })
 
+        //热门搜索
         viewModel.hotKeyList.observe(this, Observer {
             statusView.showContentView()
             for (hotKey in it) {
@@ -88,6 +98,7 @@ class QueryActivity : BaseActivity() {
             }
         })
 
+        //搜索列表
         viewModel.queryList.observe(this, Observer {
             hideLoading()
             if (queryResultRv.visibility == View.GONE) {
@@ -189,6 +200,11 @@ class QueryActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 添加头部查询菜单
+     * @param menu
+     * @return
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_query_menu_layout, menu)
         val queryItem = menu?.findItem(R.id.action_query)
