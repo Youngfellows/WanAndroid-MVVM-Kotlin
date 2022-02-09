@@ -9,6 +9,9 @@ import com.shehuan.wanandroid.ui.article.ArticleActivity
 import com.shehuan.wanandroid.utils.addCommonView
 import kotlinx.android.synthetic.main.fragment_navi_detail.*
 
+/**
+ * 导航详情页面
+ */
 private const val ARTICLES = "articles"
 
 class NavDetailFragment : BaseFragment() {
@@ -16,12 +19,16 @@ class NavDetailFragment : BaseFragment() {
     private lateinit var articles: ArrayList<ArticlesItem>
 
     companion object {
+        /**
+         * 静态方法
+         * @param param 数据
+         */
         fun newInstance(param: ArrayList<ArticlesItem>) =
-                NavDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelableArrayList(ARTICLES, param)
-                    }
+            NavDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList(ARTICLES, param)
                 }
+            }
     }
 
     override fun initLayoutResID(): Int {
@@ -37,7 +44,12 @@ class NavDetailFragment : BaseFragment() {
     @SuppressLint("ResourceType")
     override fun initView() {
         for (website in articles) {
-            navDetailFL.addCommonView(mContext, website.title, R.color.c2C2C2C, R.drawable.website_selecter) {
+            navDetailFL.addCommonView(
+                mContext,
+                website.title,
+                R.color.c2C2C2C,
+                R.drawable.website_selecter
+            ) {
                 ArticleActivity.start(mContext, website.title, website.link)
             }
         }
