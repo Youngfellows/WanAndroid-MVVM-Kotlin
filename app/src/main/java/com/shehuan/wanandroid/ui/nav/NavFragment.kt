@@ -9,16 +9,26 @@ import com.shehuan.wanandroid.base.initViewModel
 import com.shehuan.wanandroid.widget.VerticalTabLayout
 import kotlinx.android.synthetic.main.fragment_navi.*
 
+/**
+ * 导航页
+ */
 class NavFragment : BaseFragment() {
+
     private val viewModel by lazy {
         initViewModel(
             this, NavViewModel::class, NavRepository::class
         )
     }
 
+    /**
+     * Fragment页面集合
+     */
     private val fragments: ArrayList<BaseFragment> = arrayListOf()
 
     companion object {
+        /**
+         * 静态方法
+         */
         fun newInstance() = NavFragment()
     }
 
@@ -27,6 +37,10 @@ class NavFragment : BaseFragment() {
         viewModel.getNavList()
     }
 
+    /**
+     * 加载布局资源
+     * @return
+     */
     override fun initLayoutResID(): Int {
         return R.layout.fragment_navi
     }
@@ -47,8 +61,10 @@ class NavFragment : BaseFragment() {
     }
 
     override fun initView() {
+        //设置tab点击事件
         naviTabLayout.setOnTabClickListener(object : VerticalTabLayout.OnTabClickListener {
             override fun onTabClick(oldTabIndex: Int, newTabIndex: Int) {
+                //切换页面
                 fragmentManager?.beginTransaction()
                     ?.hide(fragments[oldTabIndex])
                     ?.show(fragments[newTabIndex])

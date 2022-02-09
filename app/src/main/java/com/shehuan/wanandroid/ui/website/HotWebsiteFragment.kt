@@ -8,7 +8,9 @@ import com.shehuan.wanandroid.utils.addCommonView
 import com.shehuan.wanandroid.base.initViewModel
 import kotlinx.android.synthetic.main.fragment_hot_website.*
 
-
+/**
+ * 热门网站页
+ */
 class HotWebsiteFragment : BaseFragment() {
 
     private val viewModel by lazy {
@@ -18,6 +20,9 @@ class HotWebsiteFragment : BaseFragment() {
     }
 
     companion object {
+        /**
+         * 静态方法
+         */
         fun newInstance() = HotWebsiteFragment()
     }
 
@@ -35,6 +40,7 @@ class HotWebsiteFragment : BaseFragment() {
                     R.color.c2C2C2C,
                     R.drawable.website_selecter
                 ) {
+                    //跳转到文章页面
                     ArticleActivity.start(mContext, website.name, website.link)
                 }
             }
