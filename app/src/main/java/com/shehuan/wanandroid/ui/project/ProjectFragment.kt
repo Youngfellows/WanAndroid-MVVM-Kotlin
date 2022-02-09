@@ -11,6 +11,9 @@ import com.shehuan.wanandroid.ui.project.projectDetail.ProjectDetailFragment
 import com.shehuan.wanandroid.base.initViewModel
 import kotlinx.android.synthetic.main.fragment_project.*
 
+/**
+ * 项目页
+ */
 class ProjectFragment : BaseFragment() {
 
     private val viewModel by lazy {
@@ -20,6 +23,9 @@ class ProjectFragment : BaseFragment() {
     }
 
     companion object {
+        /**
+         * 静态方法
+         */
         fun newInstance() = ProjectFragment()
     }
 
@@ -28,6 +34,10 @@ class ProjectFragment : BaseFragment() {
         viewModel.getCategoryList()
     }
 
+    /**
+     * 加载布局资源
+     * @return
+     */
     override fun initLayoutResID(): Int {
         return R.layout.fragment_project
     }
@@ -45,6 +55,7 @@ class ProjectFragment : BaseFragment() {
                 fragments.add(ProjectDetailFragment.newInstance(category.id))
             }
 
+            //加载轮播图
             val viewPagerAdapter = ViewPagerAdapter(childFragmentManager)
             viewPagerAdapter.setFragmentsAndTitles(fragments, titles)
             projectViewPager.offscreenPageLimit = it.size + 1

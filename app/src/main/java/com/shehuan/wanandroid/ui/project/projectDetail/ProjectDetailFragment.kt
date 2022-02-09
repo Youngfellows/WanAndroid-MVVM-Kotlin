@@ -16,6 +16,10 @@ import com.shehuan.wanandroid.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.floating_button_layout.*
 import kotlinx.android.synthetic.main.fragment_project_detail.*
 
+/**
+ * 项目详情页
+ */
+
 private const val CID = "cid"
 
 class ProjectDetailFragment : BaseFragment() {
@@ -26,14 +30,36 @@ class ProjectDetailFragment : BaseFragment() {
         )
     }
 
+    /**
+     * 第几页
+     */
     private var pageNum: Int = 0
+
+    /**
+     * 文章列表适配器
+     */
     private lateinit var projectListAdapter: ProjectListAdapter
+
+    /**
+     * 收藏项
+     */
     private lateinit var collectDataItem: DatasItem
+
+    /**
+     *  收藏项位置
+     */
     private var collectPosition: Int = 0
 
+    /**
+     * 项目分类ID
+     */
     private var cid: Int = 0
 
     companion object {
+        /**
+         * 静态方法,传递数据
+         * @param cid
+         */
         fun newInstance(cid: Int) =
             ProjectDetailFragment().apply {
                 arguments = Bundle().apply {
@@ -42,6 +68,10 @@ class ProjectDetailFragment : BaseFragment() {
             }
     }
 
+    /**
+     * 加载项目页
+     * @return
+     */
     override fun initLayoutResID(): Int {
         return R.layout.fragment_project_detail
     }
@@ -106,6 +136,7 @@ class ProjectDetailFragment : BaseFragment() {
             setLoadEndView(R.layout.rv_load_end_layout)
             setLoadFailedView(R.layout.rv_load_failed_layout)
             setOnItemClickListener { _, data, _ ->
+                //跳转到文章页
                 ArticleActivity.start(mContext, data.title, data.link)
             }
             setOnItemChildClickListener(R.id.projectCollectIv) { _, data, position ->
